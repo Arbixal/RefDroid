@@ -3,6 +3,14 @@
 
     <string name="app_name">Ref Phone</string>
     <string name="action_settings">Settings</string>
-    <string name="spinner_prompt">Division</string><string name="label_game_time">Period Time</string><string name="default_game_time">0 mins</string><string name="label_extra_time">Extra Time</string><string name="default_extra_time">0 mins</string><string name="label_home_team">Home Team</string><string name="label_away_team">Away Team</string><string name="label_vs">VS</string><string name="label_mins">mins</string>
+    <string name="spinner_prompt">Division</string>
+    <string name="label_game_time">Period Time</string>
+    <string name="default_game_time">45 mins</string>
+    <string name="label_extra_time">Extra Time</string>
+    <string name="default_extra_time">10 mins</string>
+    <string name="label_home_team">Home Team</string>
+    <string name="label_away_team">Away Team</string>
+    <string name="label_vs">vs</string>
+    <string name="label_mins">mins</string><string name="label_create_game">Create Game</string>
 
 </resources>

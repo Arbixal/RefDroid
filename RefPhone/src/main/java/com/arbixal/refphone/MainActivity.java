@@ -1,6 +1,8 @@
 package com.arbixal.refphone;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -12,29 +14,67 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.NumberPicker;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener
+public class MainActivity extends Activity implements GameTimeDialogFragment.GameTimeDialogListener
 {
-    private static final int LOADER_DIVISION = 1;
     private static final String TAG = "MainActivity";
 
-    private SimpleCursorAdapter mAdapter;
+    private int mGameTime = 45;
+    private int mExtraTime = 10;
+    private String mHomeTeam = "Home Team";
+    private String mAwayTeam = "Away Team";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         Log.v(MainActivity.TAG, MainActivity.TAG + ":OnCreate()");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity_main);
 
-        this.mAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, null, new String[]{CBusinessObjects.CDivision.COLUMN_NAME_NAME}, new int[]{android.R.id.text1}, 0 );
-        Spinner divisionSpinner = (Spinner) findViewById(R.id.spinner);
-        divisionSpinner.setAdapter(this.mAdapter);
-        divisionSpinner.setOnItemSelectedListener(this);
-        this.getLoaderManager().initLoader(MainActivity.LOADER_DIVISION, null, this);
+        final ActionBar actionBar = this.getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        TextView lblGameTime = (TextView)this.findViewById(R.id.lblGameTime);
+        lblGameTime.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                GameTimeDialogFragment dialog = new GameTimeDialogFragment(GameTimeDialogFragment.TimeType.GameTime, MainActivity.this.mGameTime);
+                dialog.show(MainActivity.this.getFragmentManager(), "GameTimeDialog");
+            }
+        });
+
+        TextView lblExtraTime = (TextView)this.findViewById(R.id.lblExtraTime);
+        lblExtraTime.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                GameTimeDialogFragment dialog = new GameTimeDialogFragment(GameTimeDialogFragment.TimeType.ExtraTime, MainActivity.this.mExtraTime);
+                dialog.show(MainActivity.this.getFragmentManager(), "ExtraTimeDialog");
+            }
+        });
+    }
+
+    @Override
+    public void onDialogPositiveClick(int pSelectedValue, GameTimeDialogFragment.TimeType pTimeType)
+    {
+        if (pTimeType == GameTimeDialogFragment.TimeType.GameTime)
+        {
+            this.mGameTime = pSelectedValue;
+            this.updateGameTime();
+        }
+        else
+        {
+            this.mExtraTime = pSelectedValue;
+            this.updateExtraTime();
+        }
     }
 
     @Override
@@ -43,46 +83,19 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         Log.v(MainActivity.TAG, MainActivity.TAG + ":OnCreateOptionsMenu()");
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        this.getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int pLoaderID, Bundle pBundle)
+    private void updateGameTime()
     {
-        Log.v(MainActivity.TAG, MainActivity.TAG + ":onCreateLoader()");
-        switch (pLoaderID)
-        {
-            case MainActivity.LOADER_DIVISION:
-                return (new CursorLoader(this, CBusinessObjects.CDivision.CONTENT_URI, new String[]{CBusinessObjects.CDivision._ID, CBusinessObjects.CDivision.COLUMN_NAME_NAME}, null, null, null));
-            default:
-                throw new IllegalArgumentException("Unknown Loader ID " + pLoaderID);
-        }
+        TextView lblGameTime = (TextView)this.findViewById(R.id.lblGameTime);
+        lblGameTime.setText(String.format("%d mins", this.mGameTime));
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> pLoader, Cursor pCursor)
+    private void updateExtraTime()
     {
-        Log.v(MainActivity.TAG, MainActivity.TAG + ":onLoadFinished()");
-        this.mAdapter.swapCursor(pCursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> pLoader)
-    {
-        Log.v(MainActivity.TAG, MainActivity.TAG + ":onLoaderReset()");
-        this.mAdapter.swapCursor(null);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-    {
-        Log.v(MainActivity.TAG, MainActivity.TAG + ":onItemSelected()");
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView)
-    {
-        Log.v(MainActivity.TAG, MainActivity.TAG + ":onItemSelected()");
+        TextView lblExtraTime = (TextView)this.findViewById(R.id.lblExtraTime);
+        lblExtraTime.setText(String.format("%d mins", this.mExtraTime));
     }
 }
