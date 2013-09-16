@@ -55,28 +55,31 @@ public class GameTimeDialogFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle pSavedInstanceState)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+      AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
 
-        if (this.mTimeType == TimeType.GameTime)
-        {
-            builder.setTitle("Period Time");
-            builder.setMessage("Set length of regular half:");
-        }
-        else
-        {
-            builder.setTitle("Extra Time");
-            builder.setMessage("Set length of extra time:");
-        }
+      if (this.mTimeType == TimeType.GameTime)
+      {
+          builder.setTitle("Period Time");
+          builder.setMessage("Set length of regular half:");
+      }
+      else
+      {
+          builder.setTitle("Extra Time");
+          builder.setMessage("Set length of extra time:");
+      }
 
-        LayoutInflater inflater = this.getActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_gametime, null);
-        builder.setView(dialogView);
+      LayoutInflater inflater = this.getActivity().getLayoutInflater();
+      View dialogView = inflater.inflate(R.layout.dialog_gametime, null);
+      builder.setView(dialogView);
 
-        this.npGameTime = (NumberPicker)dialogView.findViewById(R.id.npTimePicker);
-        this.npGameTime.setMaxValue(59);
-        this.npGameTime.setMinValue(1);
-        this.npGameTime.setWrapSelectorWheel(false);
-        this.npGameTime.setValue(this.mDefaultValue);
+      this.npGameTime = (NumberPicker)dialogView.findViewById(R.id.npTimePicker);
+      this.npGameTime.setMaxValue(59);
+      this.npGameTime.setMinValue(1);
+      this.npGameTime.setWrapSelectorWheel(false);
+      this.npGameTime.setValue(this.mDefaultValue);
+      String[] displayValues = new String[59];
+      for(int i = 1; i <= 59; ++i) displayValues[i-1] = String.format("%d mins", i);
+      this.npGameTime.setDisplayedValues(displayValues);
 
         builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
             @Override

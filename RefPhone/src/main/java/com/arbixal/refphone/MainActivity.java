@@ -18,6 +18,7 @@ import android.widget.NumberPicker;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.getpebble.android.kit.PebbleKit;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends Activity implements GameTimeDialogFragment.GameTimeDialogListener
@@ -35,9 +36,6 @@ public class MainActivity extends Activity implements GameTimeDialogFragment.Gam
         Log.v(MainActivity.TAG, MainActivity.TAG + ":OnCreate()");
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
-
-        final ActionBar actionBar = this.getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         TextView lblGameTime = (TextView)this.findViewById(R.id.lblGameTime);
         lblGameTime.setOnClickListener(new View.OnClickListener()

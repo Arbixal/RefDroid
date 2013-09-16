@@ -46,7 +46,9 @@
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:capitalize="words"
-            android:text="@string/label_home_team" />
+            android:text="@string/label_home_team"
+            android:singleLine="true"
+            android:selectAllOnFocus="true" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -65,7 +67,9 @@
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:capitalize="words"
-            android:text="@string/label_away_team" />
+            android:text="@string/label_away_team"
+            android:singleLine="true"
+            android:selectAllOnFocus="true" />
 
         <Button
             android:layout_width="wrap_content"
