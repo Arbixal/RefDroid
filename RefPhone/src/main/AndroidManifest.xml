@@ -22,11 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider android:name="com.arbixal.refphone.CRefPhoneProvider"
-                  android:authorities="com.arbixal.provider.RefPhone"
-                  android:exported="false">
+
+        <provider
+            android:name="com.arbixal.refphone.CRefPhoneProvider"
+            android:authorities="com.arbixal.provider.RefPhone"
+            android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
+
+        <activity
+            android:name="com.arbixal.refphone.GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
     </application>
 
 </manifest>

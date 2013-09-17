@@ -11,6 +11,9 @@
     <string name="label_home_team">Home Team</string>
     <string name="label_away_team">Away Team</string>
     <string name="label_vs">vs</string>
-    <string name="label_mins">mins</string><string name="label_create_game">Create Game</string>
+    <string name="label_mins">mins</string>
+    <string name="label_create_game">Create Game</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

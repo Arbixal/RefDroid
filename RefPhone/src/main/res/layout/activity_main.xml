@@ -48,7 +48,8 @@
             android:capitalize="words"
             android:text="@string/label_home_team"
             android:singleLine="true"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:maxLength="20"/>
 
         <TextView
             android:layout_width="fill_parent"
@@ -69,13 +70,14 @@
             android:capitalize="words"
             android:text="@string/label_away_team"
             android:singleLine="true"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:maxLength="20"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_create_game"
-            android:id="@+id/button"
+            android:id="@+id/btnCreateGame"
             android:gravity="center_vertical|center_horizontal"
             android:layout_gravity="center_horizontal"
             android:background="#077911"
