@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Build;
@@ -85,17 +86,15 @@ public class MainActivity extends Activity implements GameTimeDialogFragment.Gam
         @Override
         public void onClick(View view)
         {
-          PebbleDictionary dictionary = new PebbleDictionary();
-          dictionary.addUint8(COMM_GAME_TIME, (byte)MainActivity.this.mGameTime);
-          dictionary.addUint8(COMM_EXTRA_TIME, (byte) MainActivity.this.mExtraTime);
-
           if (txtHomeTeam.getText() != null) MainActivity.this.mHomeTeam = txtHomeTeam.getText().toString();
           if (txtAwayTeam.getText() != null) MainActivity.this.mAwayTeam = txtAwayTeam.getText().toString();
 
-          dictionary.addString(COMM_HOME_TEAM, MainActivity.this.mHomeTeam);
-          dictionary.addString(COMM_AWAY_TEAM, MainActivity.this.mAwayTeam);
-
-          PebbleKit.sendDataToPebble(MainActivity.this.getApplicationContext(), MainActivity.this.APP_UUID, dictionary);
+          Intent intent = new Intent(MainActivity.this, GameActivity.class);
+          intent.putExtra(GameActivity.EXTRA_GAMETIME, MainActivity.this.mGameTime);
+          intent.putExtra(GameActivity.EXTRA_EXTRATIME, MainActivity.this.mExtraTime);
+          intent.putExtra(GameActivity.EXTRA_HOMETEAM, MainActivity.this.mHomeTeam);
+          intent.putExtra(GameActivity.EXTRA_AWAYTEAM, MainActivity.this.mAwayTeam);
+          startActivity(intent);
         }
       });
     }
